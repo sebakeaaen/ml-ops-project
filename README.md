@@ -5,13 +5,13 @@ We will be using the PyTorch image models library (timm) for our modelling, and 
 
 The dataset consists of 5856 .jpeg images, already split into test, train and validation, and normal/pneumonia for each case. 
 * Train
-Normal → ~1350 images
-Pneumonia → ~3890 images
+  - Normal → ~1350 images
+  - Pneumonia → ~3890 images
 * Test
-Normal → ~240 images
-Pneumonia → ~400 images
+  - Normal → ~240 images
+  - Pneumonia → ~400 images
 * Validation
-Normal → 8 images
-Pneumonia → 8 images
+  - Normal → 8 images
+  - Pneumonia → 8 images
 
 Since our dataset of choice contains relatively limited amounts of data, we will try an use some pretrained models, perhaps a resnet variant as a first stab.
