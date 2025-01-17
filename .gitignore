@@ -183,3 +183,5 @@ data/processed/
 # Keep other files
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+/data
+/models

@@ -7,6 +7,7 @@ from torchvision import transforms
 from torchvision.transforms import ToPILImage 
 from torch.utils.data import Dataset
 import kagglehub
+from typing_extensions import Annotated
 
 def ensure_permissions(folder: Path) -> None:
     """Ensure read and write permissions for all files in a folder."""
@@ -68,7 +69,7 @@ class MyDataset(Dataset):
         print(f"All processed images saved to {output_folder}")
 
 
-def download_kaggle_dataset(dataset_name: str) -> None:
+def download_kaggle_dataset(dataset_name: str, raw_data_path: Path) -> None:
     """Download a dataset from Kaggle to the raw data path."""
     print(f"Downloading dataset {dataset_name}...")
     path = kagglehub.dataset_download(dataset_name)
@@ -91,9 +92,9 @@ def download_kaggle_dataset(dataset_name: str) -> None:
 
 
 def preprocess(
-    raw_data_path: Path = typer.Option(..., help="Path to the folder where raw data is stored"),
-    output_folder: Path = typer.Option(..., help="Path to the folder where processed data will be saved"),
-    dataset_name: str = typer.Option("muratkokludataset/pistachio-image-dataset", help="Name of the Kaggle dataset to download"),
+    raw_data_path: Annotated[Path, typer.Option(help="Path to the folder where raw data is stored")],
+    output_folder: Annotated[Path, typer.Option(help="Path to the folder where processed data will be saved")],
+    dataset_name: Annotated[str, typer.Option(help="Name of the Kaggle dataset to download")] = "muratkokludataset/pistachio-image-dataset",
 ) -> None:
     """Download, preprocess, and save the dataset."""
     print("Starting the dataset pipeline...")
