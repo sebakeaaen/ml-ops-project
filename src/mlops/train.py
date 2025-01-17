@@ -1,22 +1,42 @@
-from pathlib import Path
-import os
-
+import matplotlib.pyplot as plt
 import typer
-from typing_extensions import Annotated
-import pickle
+from model import resnetSimple, MetricsTracker, load_data
+import torch
+import pytorch_lightning as pl
 
-app = typer.Typer()
-models_path = "./models"
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
-@app.command()
-def train(output_file: Annotated[str, typer.Option("--output", "-o")] = "model.ckpt") -> None:
-    """Train the model."""
-    model = [1,2,3,4,5]
-    out_path = os.path.join(models_path, output_file)
-    print(out_path)
-    with open(out_path, "wb") as f:
-        pickle.dump(model, f)
+
+def train(lr: float = 1e-3, batch_size: int = 64, epochs: int = 10) -> None:
+    print(f"{lr=}, {batch_size=}, {epochs=}")
+    model = resnetSimple(learning_rate = lr).to(DEVICE)
+
+    train_loader, _ = load_data()
+
+
+    metrics_tracker = MetricsTracker()
+    # Instantiate the model, loss, and optimizer
+    trainer = pl.Trainer(
+        callbacks=[metrics_tracker],
+        max_epochs=epochs,
+        #log_every_n_steps=9,
+        logger=True,
+        enable_progress_bar=True,
+        num_sanity_val_steps=0
+    )
+    trainer.fit(model, train_loader)
+
+
+    print("Training complete")
+    torch.save(model.state_dict(), "models/model.pth")
+    fig, axs = plt.subplots(1, 2, figsize=(15, 5))
+    axs[0].plot(metrics_tracker.train_losses)
+    axs[0].set_title("Train loss")
+    axs[1].plot(metrics_tracker.train_acc)
+    axs[1].set_title("Train accuracy")
+    fig.savefig("reports/figures/training_statistics.png")
 
 
 if __name__ == "__main__":
-    app()
+    typer.run(train)
+    #train()
