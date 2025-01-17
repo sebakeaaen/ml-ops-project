@@ -10,8 +10,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.ba
 def train(lr: float = 1e-3, batch_size: int = 64, epochs: int = 10) -> None:
     print(f"{lr=}, {batch_size=}, {epochs=}")
     model = resnetSimple(learning_rate = lr).to(DEVICE)
-
-    train_loader, _ = load_data()
+    
+    train_loader, _ = load_data(batch_size=batch_size, split=0.8)
 
 
     metrics_tracker = MetricsTracker()
