@@ -17,7 +17,7 @@ def train(
     print(f"{lr=}, {batch_size=}, {epochs=}")
     model = resnetSimple(learning_rate=lr).to(DEVICE)
 
-    train_loader, _ = load_data()
+    train_loader, _ = load_data(batch_size=batch_size, split=0.8)
 
     metrics_tracker = MetricsTracker()
     # Instantiate the model, loss, and optimizer

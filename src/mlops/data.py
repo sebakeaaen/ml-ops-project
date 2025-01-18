@@ -3,10 +3,11 @@ import typer
 import shutil
 import os
 from PIL import Image
-from torchvision import transforms
+from torchvision import transforms, datasets
 from torch.utils.data import Dataset
 import kagglehub
 from typing_extensions import Annotated
+import torch
 
 
 def ensure_permissions(folder: Path) -> None:
@@ -30,6 +31,7 @@ class MyDataset(Dataset):
             [
                 transforms.Resize((224, 224)),
                 transforms.ToTensor(),
+                transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ]
         )
 
@@ -55,6 +57,14 @@ class MyDataset(Dataset):
         if len(self.image_paths) == 0:
             print("No images found for processing.")
             return
+
+        raw_dataset = datasets.ImageFolder(root=self.data_path, transform=self.transform)
+
+        processed_data_path = "./data/processed_tensor_dataset"
+
+        os.makedirs(processed_data_path, exist_ok=True)
+        for idx, (image, label) in enumerate(raw_dataset):
+            torch.save((image, label), os.path.join(processed_data_path, f"data_{idx}.pt"))
 
         for image_path in self.image_paths:
             relative_path = image_path.relative_to(self.data_path)
