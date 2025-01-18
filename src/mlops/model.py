@@ -8,9 +8,9 @@ from torch.utils.data import DataLoader, random_split
 
 
 class resnetSimple(pl.LightningModule):
-    def __init__(self, num_classes=2, pretrained=True, learning_rate = 0.003):
+    def __init__(self, num_classes=2, pretrained=True, learning_rate=0.003):
         super(resnetSimple, self).__init__()
-        self.model = models.resnet18(weights= models.ResNet18_Weights.DEFAULT if pretrained  else None)
+        self.model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT if pretrained else None)
 
         # Replace the preset num of classes to our own
         num_features = self.model.fc.in_features
@@ -21,32 +21,32 @@ class resnetSimple(pl.LightningModule):
 
     def forward(self, x):
         return self.model(x)
-    
+
     def training_step(self, batch, batch_idx):
-        images,labels = batch
+        images, labels = batch
         outputs = self(images)
         loss = self.criterion(outputs, labels)
         preds = torch.argmax(outputs, dim=1)
         acc = (preds == labels).float().mean()
 
-        self.log('train_loss', loss,  on_epoch=True, prog_bar=True)
-        self.log('train_accuracy', acc,  on_epoch=True, prog_bar=True)
+        self.log("train_loss", loss, on_epoch=True, prog_bar=True)
+        self.log("train_accuracy", acc, on_epoch=True, prog_bar=True)
 
         return loss
-    
+
     def validation_step(self, batch, batch_idx):
         images, labels = batch
         outputs = self(images)
         loss = self.criterion(outputs, labels)
-        
+
         preds = torch.argmax(outputs, dim=1)
         acc = (preds == labels).float().mean()
-        self.log("val_loss", loss,on_epoch=True, prog_bar=True)
-        self.log("val_accuracy", acc,on_epoch=True,  prog_bar=True)
+        self.log("val_loss", loss, on_epoch=True, prog_bar=True)
+        self.log("val_accuracy", acc, on_epoch=True, prog_bar=True)
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=self.learning_rate)
-    
+
 
 # This is attached to the pl.trainer to save statistics for each epoch
 class MetricsTracker(Callback):
@@ -64,17 +64,19 @@ class MetricsTracker(Callback):
         self.val_losses.append(trainer.callback_metrics["val_loss"].item())
         self.val_accuracies.append(trainer.callback_metrics["val_accuracy"].item())
 
-def load_data(imgs_path = "data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"):
+
+def load_data(imgs_path="data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"):
     # Image transformations
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        # Resnet18 was trained on images normalized in this fashion, so best to normalize our images the same way
-    ])
+    transform = transforms.Compose(
+        [
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+            # Resnet18 was trained on images normalized in this fashion, so best to normalize our images the same way
+        ]
+    )
     # Load dataset
     data_path = "data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"
     dataset = datasets.ImageFolder(root=data_path, transform=transform)
-
 
     # Split into train and validation sets
     train_size = int(0.8 * len(dataset))
@@ -85,8 +87,7 @@ def load_data(imgs_path = "data/processed/Pistachio_Image_Dataset/Pistachio_Imag
     train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
 
-    return train_loader , val_loader
-
+    return train_loader, val_loader
 
 
 if __name__ == "__main__":

@@ -4,10 +4,10 @@ import shutil
 import os
 from PIL import Image
 from torchvision import transforms
-from torchvision.transforms import ToPILImage 
 from torch.utils.data import Dataset
 import kagglehub
 from typing_extensions import Annotated
+
 
 def ensure_permissions(folder: Path) -> None:
     """Ensure read and write permissions for all files in a folder."""
@@ -17,6 +17,7 @@ def ensure_permissions(folder: Path) -> None:
         for f in files:
             os.chmod(os.path.join(root, f), 0o644)
 
+
 class MyDataset(Dataset):
     """My custom dataset."""
 
@@ -25,10 +26,12 @@ class MyDataset(Dataset):
         self.image_paths = list(self.data_path.glob("**/*.jpg")) + list(self.data_path.glob("**/*.png"))
         print(f"Found {len(self.image_paths)} images in {self.data_path}")
 
-        self.transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-        ])
+        self.transform = transforms.Compose(
+            [
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+            ]
+        )
 
     def __len__(self) -> int:
         """Return the length of the dataset."""
@@ -56,7 +59,7 @@ class MyDataset(Dataset):
         for image_path in self.image_paths:
             relative_path = image_path.relative_to(self.data_path)
             output_path = output_folder / relative_path.parent
-            os.makedirs(output_path, exist_ok=True) 
+            os.makedirs(output_path, exist_ok=True)
 
             processed_image_path = output_path / image_path.name
 
@@ -94,12 +97,14 @@ def download_kaggle_dataset(dataset_name: str, raw_data_path: Path) -> None:
 def preprocess(
     raw_data_path: Annotated[Path, typer.Option(help="Path to the folder where raw data is stored")],
     output_folder: Annotated[Path, typer.Option(help="Path to the folder where processed data will be saved")],
-    dataset_name: Annotated[str, typer.Option(help="Name of the Kaggle dataset to download")] = "muratkokludataset/pistachio-image-dataset",
+    dataset_name: Annotated[
+        str, typer.Option(help="Name of the Kaggle dataset to download")
+    ] = "muratkokludataset/pistachio-image-dataset",
 ) -> None:
     """Download, preprocess, and save the dataset."""
     print("Starting the dataset pipeline...")
 
-    if not raw_data_path.exists() or len([f for f in raw_data_path.iterdir() if not f.name.startswith('.')]) == 0:
+    if not raw_data_path.exists() or len([f for f in raw_data_path.iterdir() if not f.name.startswith(".")]) == 0:
         download_kaggle_dataset(dataset_name, raw_data_path)
 
     dataset = MyDataset(raw_data_path)

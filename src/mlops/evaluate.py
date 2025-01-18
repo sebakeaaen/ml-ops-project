@@ -1,12 +1,18 @@
 import torch
 import typer
 import pytorch_lightning as pl
+from typing_extensions import Annotated
 from model import resnetSimple, MetricsTracker, load_data
+
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
 
-def evaluate(model_checkpoint: str) -> None:
+def evaluate(
+    model_checkpoint: Annotated[
+        str, typer.Option(help="Path to model checkpoint used for evaluation")
+    ] = "models/model.ckpt",
+) -> None:
     """Evaluate a trained model."""
     print("Evaluating like my life depended on it")
     print(model_checkpoint)
@@ -24,12 +30,11 @@ def evaluate(model_checkpoint: str) -> None:
         log_every_n_steps=9,
         logger=True,
         enable_progress_bar=True,
-        num_sanity_val_steps=0
-        )
+        num_sanity_val_steps=0,
+    )
     trainer.validate(model, val_loader)
     print(f"Test accuracy: {metrics_tracker.val_accuracies[0]}")
 
 
 if __name__ == "__main__":
     typer.run(evaluate)
-    #evaluate("models/model.pth")

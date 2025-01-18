@@ -185,3 +185,4 @@ data/processed/
 !data/processed/.gitkeep
 /data
 /models
+/lightning_logs

@@ -1,11 +1,11 @@
 import os
 
 from invoke import Context, task
-from typing_extensions import Annotated
 
 WINDOWS = os.name == "nt"
 PROJECT_NAME = "mlops"
 PYTHON_VERSION = "3.11"
+
 
 # Setup commands
 @task
@@ -16,6 +16,7 @@ def create_environment(ctx: Context) -> None:
         echo=True,
         pty=not WINDOWS,
     )
+
 
 @task
 def requirements(ctx: Context) -> None:
@@ -30,16 +31,29 @@ def dev_requirements(ctx: Context) -> None:
     """Install development requirements."""
     ctx.run('pip install -e .["dev"]', echo=True, pty=not WINDOWS)
 
+
 # Project commands
 @task
 def preprocess_data(ctx: Context) -> None:
     """Preprocess data."""
-    ctx.run(f"python src/{PROJECT_NAME}/data.py --raw-data-path data/raw --output-folder data/processed", echo=True, pty=not WINDOWS)
+    ctx.run(
+        f"python src/{PROJECT_NAME}/data.py --raw-data-path data/raw --output-folder data/processed",
+        echo=True,
+        pty=not WINDOWS,
+    )
+
 
 @task
 def train(ctx: Context) -> None:
     """Train model."""
-    ctx.run(f"python src/{PROJECT_NAME}/train.py", echo=True, pty=not WINDOWS)
+    ctx.run(f"python src/{PROJECT_NAME}/train.py --model-checkpoint models/model.ckpt", echo=True, pty=not WINDOWS)
+
+
+@task
+def evaluate(ctx: Context) -> None:
+    """Evaluate model."""
+    ctx.run(f"python src/{PROJECT_NAME}/evaluate.py --model-checkpoint models/model.ckpt", echo=True, pty=not WINDOWS)
+
 
 @task
 def test(ctx: Context) -> None:
@@ -47,19 +61,19 @@ def test(ctx: Context) -> None:
     ctx.run("coverage run -m pytest tests/", echo=True, pty=not WINDOWS)
     ctx.run("coverage report -m", echo=True, pty=not WINDOWS)
 
+
 @task
 def docker_build(ctx: Context, progress: str = "plain") -> None:
     """Build docker images."""
     ctx.run(
         f"docker build -t train:latest . -f dockerfiles/train.dockerfile --progress={progress}",
         echo=True,
-        pty=not WINDOWS
+        pty=not WINDOWS,
     )
     ctx.run(
-        f"docker build -t api:latest . -f dockerfiles/api.dockerfile --progress={progress}",
-        echo=True,
-        pty=not WINDOWS
+        f"docker build -t api:latest . -f dockerfiles/api.dockerfile --progress={progress}", echo=True, pty=not WINDOWS
     )
+
 
 # Documentation commands
 @task(dev_requirements)

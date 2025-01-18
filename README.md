@@ -3,7 +3,7 @@
 # DTU ML Ops project. Pistachio classification.
 Our project is based on a dataset of pistachio images, aiming to classify them into 2 classes (types): Kirmizi or Siirt. Link to the dataset: https://www.kaggle.com/datasets/muratkokludataset/pistachio-image-dataset. The goal is to set up a complete Machine Learning pipeline covering development, deployment, maintenance and operations of a pipeline for detecing the pistachio type based on the given images.
 
-We will be using the PyTorch image models library (timm) for our modelling, and expect to use the PyTorch Lightning framework to remove the need for boilerplate. 
+We will be using the PyTorch image models library (timm) for our modelling, and expect to use the PyTorch Lightning framework to remove the need for boilerplate.
 
 The dataset consists of 2148 .jpeg images:
   - Normal → 1232 images
