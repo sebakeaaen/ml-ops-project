@@ -23,7 +23,7 @@ class MyDataset(Dataset):
     """My custom dataset."""
 
     def __init__(self, raw_data_path: Path) -> None:
-        self.data_path = raw_data_path
+        self.data_path = Path(raw_data_path)
         self.image_paths = list(self.data_path.glob("**/*.jpg")) + list(self.data_path.glob("**/*.png"))
         print(f"Found {len(self.image_paths)} images in {self.data_path}")
 
