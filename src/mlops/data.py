@@ -19,7 +19,7 @@ def ensure_permissions(folder: Path) -> None:
             os.chmod(os.path.join(root, f), 0o644)
 
 
-class MyDataset(Dataset):
+class PistachioDataset(Dataset):
     """My custom dataset."""
 
     def __init__(self, raw_data_path: Path) -> None:
@@ -117,7 +117,7 @@ def preprocess(
     if not raw_data_path.exists() or len([f for f in raw_data_path.iterdir() if not f.name.startswith(".")]) == 0:
         download_kaggle_dataset(dataset_name, raw_data_path)
 
-    dataset = MyDataset(raw_data_path)
+    dataset = PistachioDataset(raw_data_path)
     dataset.process_images(output_folder)
 
 

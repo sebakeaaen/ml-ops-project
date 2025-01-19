@@ -2,7 +2,7 @@ import torch
 import typer
 import pytorch_lightning as pl
 from typing_extensions import Annotated
-from model import resnetSimple, MetricsTracker, load_data
+from mlops.model import resnetSimple, MetricsTracker, load_data
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")

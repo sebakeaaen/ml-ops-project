@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import typer
-from model import resnetSimple, MetricsTracker, load_data
+from mlops.model import resnetSimple, MetricsTracker, load_data
 import torch
 import pytorch_lightning as pl
 from typing_extensions import Annotated
