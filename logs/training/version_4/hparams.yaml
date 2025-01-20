@@ -1,0 +1,7 @@
+dataset_path: data/processed_tensor_dataset
+cuda: false
+batch_size: 64
+lr: 0.01
+n_epochs: 5
+seed: 123
+dataset_split: 0.8
