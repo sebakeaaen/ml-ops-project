@@ -8,7 +8,6 @@ from pytorch_lightning.loggers import CSVLogger
 
 @hydra.main(config_path="../../configs", config_name="default_config.yaml", version_base="1.1")
 def train(cfg):
-
     """
     (
         lr: float = 1e-3,
@@ -18,7 +17,7 @@ def train(cfg):
         ) -> None:
     """
     logger = CSVLogger("logs/", name="training")
-    #trainer = pl.Trainer(logger=logger)
+    # trainer = pl.Trainer(logger=logger)
     config = cfg.experiment
 
     logger.log_hyperparams(dict(config))
@@ -35,10 +34,9 @@ def train(cfg):
 
     torch.manual_seed(seed)
 
-
     model = resnetSimple(learning_rate=lr).to(DEVICE)
 
-    train_loader, _ = load_data(imgs_path= dataset_path, batch_size=batch_size, split=dataset_split)
+    train_loader, _ = load_data(imgs_path=dataset_path, batch_size=batch_size, split=dataset_split)
 
     metrics_tracker = MetricsTracker()
     # Instantiate the model, loss, and optimizer
@@ -49,7 +47,7 @@ def train(cfg):
         # log_every_n_steps=9,
         enable_progress_bar=True,
         num_sanity_val_steps=0,
-        enable_checkpointing=False
+        enable_checkpointing=False,
     )
     trainer.fit(model, train_loader)
 
@@ -64,5 +62,5 @@ def train(cfg):
 
 
 if __name__ == "__main__":
-    #typer.run(train)
+    # typer.run(train)
     train()

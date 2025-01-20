@@ -83,18 +83,19 @@ class PreprocessedDataset(Dataset):
 def load_data(imgs_path="data/processed_tensor_dataset", batch_size=64, split=0.8, num_workers=0):
     # Image transformations
 
-    
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        # Resnet18 was trained on images normalized in this fashion, so best to normalize our images the same way
-    ])
-    
+    transform = transforms.Compose(
+        [
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+            # Resnet18 was trained on images normalized in this fashion, so best to normalize our images the same way
+        ]
+    )
+
     # Load dataset
-    data_path =  "data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"
+    data_path = "data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"
     tensor_dataset = datasets.ImageFolder(root=data_path, transform=transform)
 
-    #tensor_dataset = PreprocessedDataset(imgs_path)
+    # tensor_dataset = PreprocessedDataset(imgs_path)
 
     # Split into train and validation sets
     train_size = int(split * len(tensor_dataset))
