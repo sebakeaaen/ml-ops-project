@@ -189,3 +189,5 @@ data/processed/
 
 # creds
 credentials/
+
+logs/
