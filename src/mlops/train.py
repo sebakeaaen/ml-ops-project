@@ -24,7 +24,7 @@ def train(cfg):
 
     # Model Hyperparameters
     dataset_path = config.dataset_path
-    cuda = config.cuda
+    # cuda = config.cuda
     DEVICE = torch.device("cuda" if True else "cpu")
     batch_size = config.batch_size
     lr = config.lr

@@ -1,6 +1,6 @@
 import torch
 import pytorch_lightning as pl
-from model import resnetSimple, MetricsTracker, load_data
+from mlops.model import resnetSimple, MetricsTracker, load_data
 import hydra
 from pytorch_lightning.loggers import CSVLogger
 
@@ -22,12 +22,12 @@ def evaluate(cfg) -> None:
     logger.log_hyperparams(dict(config))
 
     # Model Hyperparameters
-    dataset_path = config.dataset_path
+    # dataset_path = config.dataset_path
     cuda = config.cuda
     DEVICE = torch.device("cuda" if cuda else "cpu")
     batch_size = config.batch_size
     epochs = config.n_epochs
-    seed = config.seed
+    # seed = config.seed
     dataset_split = config.dataset_split
 
     # torch.manual_seed(seed)
