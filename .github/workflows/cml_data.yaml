@@ -43,4 +43,4 @@ jobs:
 
     - name: Check data statistics
       run: |
-        python dataset_statistics.py
+        python src/mlops/dataset_statistics.py
