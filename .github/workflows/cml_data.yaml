@@ -47,5 +47,4 @@ jobs:
       run: |
         python src/mlops/dataset_statistics.py'
         cat temp/dataset_statistics.txt >> temp/report.md
-        echo '![](pistachio_images.png)' >> temp/report.md
         cml comment create temp/report.md

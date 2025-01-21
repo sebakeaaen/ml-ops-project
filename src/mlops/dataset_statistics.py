@@ -16,6 +16,7 @@ def dataset_statistics() -> None:
         f.write("Pistachio dataset\n")
         f.write(f"Number of images: {len(train_dataset)}\n")
         f.write(f"Image shape: {train_dataset[0][0].shape}\n")
+        f.write("![](pistachio_images.png)")
 
     train_dataset, test_dataset = load_data()
     images, targets = next(iter(train_dataset))
