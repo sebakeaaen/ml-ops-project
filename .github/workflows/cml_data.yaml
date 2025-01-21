@@ -40,7 +40,8 @@ jobs:
     - name: Pull data
       run: |
         dvc pull
-
+    - name: Setup CML
+      uses: iterative/setup-cml@v1
     - name: Check data statistics
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
