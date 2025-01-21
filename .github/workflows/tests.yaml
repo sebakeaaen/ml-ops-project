@@ -42,7 +42,7 @@ jobs:
           pip list
       - name: Pull data
         run: |
-          dvc pull
+          dvc pull --no-run-cache
       - name: Run tests & coverage
         run: |
           coverage run -m pytest tests/

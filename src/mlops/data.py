@@ -1,12 +1,15 @@
 from pathlib import Path
+import torch
 import typer
 import shutil
 import os
 from PIL import Image
-from torchvision import transforms
+from torchvision import transforms, datasets
 from torch.utils.data import Dataset
 import kagglehub
 from typing_extensions import Annotated
+from torch.utils.data import DataLoader, random_split
+from torch import manual_seed
 
 
 def ensure_permissions(folder: Path) -> None:
@@ -110,6 +113,47 @@ def preprocess(
 
     dataset = PistachioDataset(raw_data_path)
     dataset.process_images(output_folder)
+
+
+class PreprocessedDataset(Dataset):
+    def __init__(self, tensor_dir):
+        self.tensor_dir = tensor_dir
+        print("Working dir: " + os.getcwd())
+        self.file_list = os.listdir(tensor_dir)
+
+    def __len__(self):
+        return len(self.file_list)
+
+    def __getitem__(self, idx):
+        file_path = os.path.join(self.tensor_dir, self.file_list[idx])
+        return torch.load(file_path)
+
+
+def load_data(batch_size=64, split=0.8, num_workers=0, seed=0):
+    # Image transformations
+    manual_seed(seed)
+
+    transform = transforms.Compose(
+        [
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+            # Resnet18 was trained on images normalized in this fashion, so best to normalize our images the same way
+        ]
+    )
+
+    # Load dataset
+    data_path = "data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"
+    tensor_dataset = datasets.ImageFolder(root=data_path, transform=transform)
+
+    # Split into train and validation sets
+    train_size = int(split * len(tensor_dataset))
+    val_size = len(tensor_dataset) - train_size
+    train_dataset, val_dataset = random_split(tensor_dataset, [train_size, val_size])
+
+    # DataLoaders
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+    return train_loader, val_loader
 
 
 if __name__ == "__main__":

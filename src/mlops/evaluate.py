@@ -1,6 +1,7 @@
 import torch
 import pytorch_lightning as pl
-from mlops.model import resnetSimple, MetricsTracker, load_data
+from mlops.model import resnetSimple, MetricsTracker
+from mlops.data import load_data
 import hydra
 from pytorch_lightning.loggers import CSVLogger
 

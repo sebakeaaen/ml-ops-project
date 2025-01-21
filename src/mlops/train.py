@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
-from model import resnetSimple, MetricsTracker, load_data
+from mlops.model import resnetSimple, MetricsTracker
+from mlops.data import load_data
 import torch
 import pytorch_lightning as pl
 import hydra
@@ -24,8 +25,8 @@ def train(cfg):
 
     # Model Hyperparameters
     dataset_path = config.dataset_path
-    # cuda = config.cuda
-    DEVICE = torch.device("cuda" if True else "cpu")
+    cuda = config.cuda
+    DEVICE = torch.device("cuda" if cuda else "cpu")
     batch_size = config.batch_size
     lr = config.lr
     epochs = config.n_epochs
