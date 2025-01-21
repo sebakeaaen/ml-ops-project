@@ -191,3 +191,5 @@ data/processed/
 credentials/
 
 logs/
+
+temp/

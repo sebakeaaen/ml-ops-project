@@ -42,5 +42,10 @@ jobs:
         dvc pull
 
     - name: Check data statistics
+      env:
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        python src/mlops/dataset_statistics.py
+        python src/mlops/dataset_statistics.py'
+        cat temp/dataset_statistics.txt >> temp/report.md
+        echo '![](pistachio_images.png)' >> temp/report.md
+        cml comment create temp/report.md
