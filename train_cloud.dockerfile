@@ -18,6 +18,6 @@ RUN dvc init --no-scm
 COPY .dvc/config .dvc/config
 COPY *.dvc /
 RUN dvc config core.no_scm true
-RUN dvc pull
+RUN dvc remote add -d myremote /gcs/pistachio_data/
 
 ENTRYPOINT ["python", "-u", "src/mlops/train.py"]
