@@ -129,7 +129,13 @@ class PreprocessedDataset(Dataset):
         return torch.load(file_path)
 
 
-def load_data(batch_size=64, split=0.8, num_workers=0, seed=0):
+def load_data(
+    imgs_path="data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset",
+    batch_size=64,
+    split=0.8,
+    num_workers=0,
+    seed=0,
+):
     # Image transformations
     manual_seed(seed)
 
@@ -142,8 +148,7 @@ def load_data(batch_size=64, split=0.8, num_workers=0, seed=0):
     )
 
     # Load dataset
-    data_path = "data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"
-    tensor_dataset = datasets.ImageFolder(root=data_path, transform=transform)
+    tensor_dataset = datasets.ImageFolder(root=imgs_path, transform=transform)
 
     # Split into train and validation sets
     train_size = int(split * len(tensor_dataset))

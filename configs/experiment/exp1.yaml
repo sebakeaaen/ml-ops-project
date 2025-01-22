@@ -1,4 +1,4 @@
-dataset_path: "data/processed_tensor_dataset"
+dataset_path: "data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset"
 cuda : False
 batch_size: 64
 lr: 0.01
