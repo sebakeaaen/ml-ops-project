@@ -4,4 +4,4 @@ workerPoolSpecs:
         machineType: n1-highmem-2
     replicaCount: 1
     containerSpec:
-        imageUri: gcr.io/mlops/train.dockerfile
+        imageUri: europe-west3-docker.pkg.dev/agile-scheme-448123-f3/mlops/train.dockerfile

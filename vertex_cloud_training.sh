@@ -1,7 +1,6 @@
 gcloud ai custom-jobs create \
     --region=europe-west3 \
-    --display-name=test-run \
+    --display-name=training-run \
     --config=vertex_config.yaml \
-    --command 'dvc pull' \
     --command 'python src/mlops/train.py' \
-    --args '["--epochs", "10"]'
+    --args '["--epochs", "10"]' \
