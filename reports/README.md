@@ -82,9 +82,9 @@ will check the repositories and the code to verify your answers.
 * [x] Add a continues workflow that triggers when data changes (M19)
 * [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
 * [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
-* [x] Create a trigger workflow for automatically building your docker images (M21)
-* [x] Get your model training in GCP using either the Engine or Vertex AI (M21)
-* [X] Create a FastAPI application that can do inference using your model (M22)
+* [ ] Create a trigger workflow for automatically building your docker images (M21)
+* [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
+* [ ] Create a FastAPI application that can do inference using your model (M22)
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
 * [ ] Write API tests for your application and setup continues integration for these (M24)
 * [ ] Load test your application (M24)
@@ -129,7 +129,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- s204426, s144463, s201700, s232773 ---
+s204426, s144463, s201700, s232773
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -143,7 +143,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 3 fill here ---
+In our project, we utilized the Transformers library, a third-party framework built on top of PyTorch that offers thousands of pretrained models for various tasks and is considered state-of-the-art in natural language processing. We opted for the pretrained BERT-Base tokenizer and BERT-Base model for our text classification task, which we fine-tuned specifically for sentiment analysis. For training, we leveraged HuggingFace's Trainer function, which is optimized for transformers and comes with built-in evaluation and prediction capabilities. During the testing phase, we used functions from the sklearn library to calculate key metrics, such as accuracy, precision, recall, the confusion matrix, and the classification report.
 
 ## Coding environment
 
@@ -163,7 +163,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 4 fill here ---
+To automatically generate and manage the requirements.txt file, which lists all project dependencies, we used the pipreqs package. This tool ensures that only the packages actually used in the project are included, rather than all the packages installed in the environment. Since we were developing in a separate conda environment, we could also use the pip freeze command to capture the list of dependencies. It's important to update the requirements.txt file whenever changes are made to keep the dependencies current. When setting up the development environment, the pip install -r requirements.txt command replicates the necessary environment. It's recommended to first create a new Python environment (e.g., with conda create --name my_env) and then install the dependencies.
 
 ### Question 5
 
@@ -179,7 +179,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- We have pretty much followed the cookiecutter template as stated, which means we filled out folders such as configs, data, src etc. We have additionally added a logs folder, which is only on the local machine as it is git ignored, for logging each experiment execution. ---
+We have pretty much followed the cookiecutter template as stated, which means we filled out folders such as configs, data, src etc. We have additionally added a logs folder, which is only on the local machine as it is git ignored, for logging each experiment execution. The src/m,lops folder contains the python code for our model. This is both the model class but also the training, prediction and evaluation scripts for our model.
 
 ### Question 6
 
@@ -194,7 +194,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 6 fill here ---
+We added comments to our code, to make it more understandable and easy to follow. We tried to follow the pep8 guidelines, to have a styandard format for our python code. In large projects, and more importantly, when multiple people are involved, it's essential to have a guideline for writing and formatting code. These guidelines help standardize the code, making it easier to read, understand, and maintain, whether by new team members or by yourself after a long time away from the project.
 
 ## Version control
 
@@ -243,7 +243,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- We mainly worked on the main branch, as we worked rather fast-paced and relied on each others pushes to continue. Working with branches and pull requests is almost a necessity in professional environments, as different versions of the project and features are encapsulated by isolated branches. This prevents the whole system from breaking if conflicting pushed changes are pushed to main, as pull requests are reviewed before merges.  ---
+We mainly worked on the main branch, as we worked rather fast-paced and relied on each others pushes to continue. Working with branches and pull requests is almost a necessity in professional environments, as different versions of the project and features are encapsulated by isolated branches. This prevents the whole system from breaking if conflicting pushed changes are pushed to main, as pull requests are reviewed before merges. However, in our case, we did not find it strictly necessary, so we did not use branches.
 
 ### Question 10
 
@@ -258,7 +258,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 10 fill here ---
+The group did make use of DVC, as we directly download the dataset from Kaggle and store it in the repository. We then move it to the wanted folder and work on it.
 
 ### Question 11
 
@@ -294,7 +294,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- We used config files with hydra, and logged each experiment and its hyperparameters using CSV logging and pl.lightning. The code could then be executed as simply as: python train.py. Hyperparameters could be changed individually in the command line, or set to a entirely different preset config. ---
+We used config files with hydra, and logged each experiment and its hyperparameters using CSV logging and pl.lightning. The code could then be executed as simply as: python train.py. Hyperparameters could be changed individually in the command line, or set to a entirely different preset config.
 
 ### Question 13
 
@@ -309,7 +309,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- As said in the previous question, every time the model is trained or evaluated, its hyperparameters are logged, as well as its performance. ---
+As said in the previous question, every time the model is trained or evaluated, its hyperparameters are logged, as well as its performance. This helps keep track of the progress, as well as the optimal hyperparameters.
 
 ### Question 14
 
@@ -341,7 +341,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 15 fill here ---
+We used docker images in our project, setting them up on Google Cloud Platform (GCP).
 
 ### Question 16
 
@@ -356,7 +356,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- Debugging methods depended on the individual group member. While writing the model, no serious bugs occured that required the professional debugger, as they were simply resolved with a walkthrough of the code. ---
+Debugging methods depended on the individual group member. While writing the model, no serious bugs occured that required the professional debugger, as they were simply resolved with a walkthrough of the code.
 
 ## Working in the cloud
 
