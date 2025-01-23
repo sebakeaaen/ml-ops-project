@@ -1,7 +1,6 @@
 import torch
 import pytest
-import pytorch_lightning as pl
-from src.mlops.model import resnetSimple, MetricsTracker, load_data
+from src.mlops.model import resnetSimple
 
 
 @pytest.fixture
@@ -35,6 +34,7 @@ def test_training_step(model, sample_input):
     loss = model.training_step((sample_input, labels), 0)
     assert loss > 0, "Loss should be positive"
 
+
 """
 def test_validation_step():
     #Test validation step logs loss and accuracy.
@@ -49,14 +49,15 @@ def test_validation_step():
         logger=False,
         enable_progress_bar=False
     )
-    
+
     trainer.validate(model, [(sample_input, labels)])
 
     logged_metrics = trainer.callback_metrics
     assert "val_loss" in logged_metrics, "Validation loss should be logged"
     assert "val_accuracy" in logged_metrics, "Validation accuracy should be logged"
 """
-    
+
+
 def test_configure_optimizers(model):
     """Test optimizer configuration."""
     optimizer = model.configure_optimizers()
