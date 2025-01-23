@@ -30,13 +30,14 @@ def evaluate(cfg) -> None:
     epochs = config.n_epochs
     # seed = config.seed
     dataset_split = config.dataset_split
+    model_path = config.model_path
 
     # torch.manual_seed(seed)
 
     _, val_loader = load_data(batch_size=batch_size, split=dataset_split)
 
     model = resnetSimple().to(DEVICE)
-    model.load_state_dict(torch.load("models/model.ckpt"))
+    model.load_state_dict(torch.load(model_path))
 
     metrics_tracker = MetricsTracker()
 
@@ -44,7 +45,7 @@ def evaluate(cfg) -> None:
         logger=logger,
         callbacks=[metrics_tracker],
         max_epochs=epochs,
-        # log_every_n_steps=9,
+        log_every_n_steps=9,
         enable_progress_bar=True,
         num_sanity_val_steps=0,
         enable_checkpointing=False,

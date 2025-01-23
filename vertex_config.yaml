@@ -9,3 +9,6 @@ workerPoolSpecs:
           - python
         args:
           - src/mlops/train.py
+          - experiment.n_epochs=1
+          - experiment.model_path=/gcs/pistachio_data_train/models/model_test.ckpt
+          - experiment.dataset_path=/gcs/pistachio_data_train/data/processed/Pistachio_Image_Dataset/Pistachio_Image_Dataset

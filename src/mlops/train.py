@@ -46,7 +46,7 @@ def train(cfg):
         logger=logger,
         callbacks=[metrics_tracker],
         max_epochs=epochs,
-        # log_every_n_steps=9,
+        log_every_n_steps=9,
         enable_progress_bar=True,
         num_sanity_val_steps=0,
         enable_checkpointing=False,
