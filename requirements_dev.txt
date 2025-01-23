@@ -17,6 +17,4 @@ mkdocs-material==9.5.49
 mkdocstrings-python==1.13.0
 
 # gcp
-google-api-python-client==2.159
-dvc-gs==3.0.1
 pre-commit==4.0.1

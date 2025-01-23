@@ -1,29 +1,27 @@
+import os
 import typer
 from mlops.utils import show_image_and_target
 from matplotlib import pyplot as plt
-import torch
-from mlops.data import PistachioDataset
+from mlops.data import load_data, PistachioDataset
 
 
-def dataset_statistics(datadir: str = "data/raw/") -> None:
+def dataset_statistics() -> None:
     """Compute dataset statistics."""
-    dataset = PistachioDataset(raw_data_path=datadir)
+    train_dataset = PistachioDataset("data/raw")
 
-    print("Test dataset: pistacio")
-    print(f"Number of images: {len(dataset)}")
-    print(f"Image shape: {dataset[0][0].shape}")
+    if not os.path.exists("temp"):
+        os.makedirs("temp", exist_ok=True)
 
-    show_image_and_target(dataset[:25], dataset[:25], show=False)
-    plt.savefig("pistachio_images.png")
-    plt.close()
+    with open("temp/dataset_statistics.txt", "w") as f:
+        f.write("Pistachio dataset\n")
+        f.write(f"Number of images: {len(train_dataset)}\n")
+        f.write(f"Image shape: {train_dataset[0][0].shape}\n")
+        f.write("![](pistachio_images.png)")
 
-    test_label_distribution = torch.bincount(dataset.target)
-
-    plt.bar(torch.arange(10), test_label_distribution)
-    plt.title("Test label distribution")
-    plt.xlabel("Label")
-    plt.ylabel("Count")
-    plt.savefig("test_label_distribution.png")
+    train_dataset, test_dataset = load_data()
+    images, targets = next(iter(train_dataset))
+    show_image_and_target(images[:4], targets[:4], show=False)
+    plt.savefig("temp/pistachio_images.png")
     plt.close()
 
 

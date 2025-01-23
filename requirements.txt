@@ -9,3 +9,8 @@ kagglehub==0.3.6
 dvc==3.59.0
 pytorch_lightning==2.5.0.post0
 matplotlib==3.10.0
+google-api-python-client==2.159
+dvc-gs==3.0.1
+python-multipart==0.0.20
+uvicorn[standard]
+hydra-core==1.3.2

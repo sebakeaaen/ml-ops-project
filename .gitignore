@@ -189,3 +189,9 @@ data/processed/
 
 # creds
 credentials/
+
+logs/
+
+temp/
+
+notes.md

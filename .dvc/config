@@ -1,5 +1,5 @@
 [core]
     remote = remote_storage
+    autostage = true
 ['remote "remote_storage"']
-    url = gs://pistacio_dataset/
-    version_aware = true
+    url = gs://pistachio_data/
