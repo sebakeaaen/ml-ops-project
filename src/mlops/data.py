@@ -40,12 +40,17 @@ class PistachioDataset(Dataset):
         return len(self.image_paths)
 
     def __getitem__(self, index: int):
-        """Return a given sample from the dataset."""
+        """Returns a tuple (image, label)."""
         image_path = self.image_paths[index]
         image = Image.open(image_path).convert("RGB")
+
+        label_str = image_path.stem.split("_")[0]
+        label = 0 if label_str == "kirmizi" else 1  # Example: 0 for 'kirmizi', 1 for 'siirt'
+
         if self.transform:
             image = self.transform(image)
-        return image
+
+        return image, label
 
     def process_images(self, output_folder: Path) -> None:
         """Transform and save raw images to the output folder, preserving folder structure."""
