@@ -143,7 +143,7 @@ s204426, s144463, s201700, s232773
 >
 > Answer:
 
-In our project, we utilized the Transformers library, a third-party framework built on top of PyTorch that offers thousands of pretrained models for various tasks and is considered state-of-the-art in natural language processing. We opted for the pretrained BERT-Base tokenizer and BERT-Base model for our text classification task, which we fine-tuned specifically for sentiment analysis. For training, we leveraged HuggingFace's Trainer function, which is optimized for transformers and comes with built-in evaluation and prediction capabilities. During the testing phase, we used functions from the sklearn library to calculate key metrics, such as accuracy, precision, recall, the confusion matrix, and the classification report.
+--- answer here ---
 
 ## Coding environment
 
