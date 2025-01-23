@@ -47,8 +47,8 @@ steps:
     'managed',
     '--region',
     'europe-west3',
-    'allow-unauthenticated',
-    'timeout',
+    '--allow-unauthenticated',
+    '--timeout',
     '500',
     '--memory',
     '2Gi'
