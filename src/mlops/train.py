@@ -25,6 +25,7 @@ def train(cfg):
 
     # Model Hyperparameters
     dataset_path = config.dataset_path
+    model_path = config.model_path
     cuda = config.cuda
     DEVICE = torch.device("cuda" if cuda else "cpu")
     batch_size = config.batch_size
@@ -53,7 +54,7 @@ def train(cfg):
     trainer.fit(model, train_loader)
 
     print("Training complete")
-    torch.save(model.state_dict(), "models/model.ckpt")
+    torch.save(model.state_dict(), model_path)
     fig, axs = plt.subplots(1, 2, figsize=(15, 5))
     axs[0].plot(metrics_tracker.train_losses)
     axs[0].set_title("Train loss")
