@@ -18,4 +18,4 @@ RUN pip install . --no-deps --no-cache-dir --verbose
 
 EXPOSE $PORT
 
-ENTRYPOINT uvicorn src.mlops.api:app --port $PORT --workers 1
+ENTRYPOINT uvicorn src.mlops.api:app --host 0.0.0.0 --port $PORT --workers 1

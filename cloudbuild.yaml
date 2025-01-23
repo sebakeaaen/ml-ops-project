@@ -7,7 +7,7 @@ steps:
     '-t',
     'europe-west3-docker.pkg.dev/$PROJECT_ID/mlops/train:latest',
     '-f',
-    'train_cloud.dockerfile'
+    'dockerfiles/train_cloud.dockerfile'
   ]
   waitFor: ['-']
 - name: 'gcr.io/cloud-builders/docker'
@@ -25,7 +25,7 @@ steps:
     '-t',
     'europe-west3-docker.pkg.dev/$PROJECT_ID/mlops/api:latest',
     '-f',
-    'api_cloud.dockerfile'
+    'dockerfiles/api_cloud.dockerfile'
   ]
   waitFor: ['-']
 - name: 'gcr.io/cloud-builders/docker'
