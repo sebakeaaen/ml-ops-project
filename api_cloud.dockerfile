@@ -16,6 +16,5 @@ COPY pyproject.toml pyproject.toml
 RUN pip install -r requirements.txt --no-cache-dir --verbose
 RUN pip install . --no-deps --no-cache-dir --verbose
 
-EXPOSE 8080
-
-ENTRYPOINT ["uvicorn", "src/mlops/api:app", "--port", "8080", "--workers", "1"]
+EXPOSE $PORT
+CMD exec uvicorn src.mlops.api:app --port $PORT --workers 1
