@@ -46,10 +46,10 @@ def test_dataset_transformations():
 
 def test_dataset_statistics():
     """Test if dataset statistics are written to file."""
-    dataset_statistics() 
+    dataset_statistics()
     stats_file = "temp/dataset_statistics.txt"
     assert os.path.exists(stats_file), "Statistics file was not created."
     with open(stats_file, "r") as f:
         content = f.read()
         assert "Number of images:" in content, "Statistics content is incorrect."
-    os.remove(stats_file)# Cleanup
+    os.remove(stats_file)  # Cleanup

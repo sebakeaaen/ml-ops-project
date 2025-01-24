@@ -106,10 +106,10 @@ will check the repositories and the code to verify your answers.
 
 * [ ] Write some documentation for your application (M32)
 * [ ] Publish the documentation to GitHub Pages (M32)
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Create an architectural diagram over your MLOps pipeline
-* [ ] Make sure all group members have an understanding about all parts of the project
-* [ ] Uploaded all your code to GitHub
+* [X] Revisit your initial project description. Did the project turn out as you wanted?
+* [X] Create an architectural diagram over your MLOps pipeline
+* [X] Make sure all group members have an understanding about all parts of the project
+* [X] Uploaded all your code to GitHub
 
 ## Group information
 
@@ -348,7 +348,7 @@ As said in the previous question, every time the model is trained or evaluated, 
 >
 > Answer:
 
-![image](reports\figures\training_statistics.png). We have chosen to keep it simple in this part, due to time constraints, as we would rather focus on other parts of the project. As seen in the picture, we have simply chosen to graph the testing of our model, which shows the loss and accuracy for each epoch. We see in the graph that the loss starts out high, but quickly drops down over the first 1-3 epochs. After this point, we see diminishing returns running aditional epochs. That is not to say that it is without cause however, as we still see some improvements all the way to epoch 50. The graph also reveals that the process is not entirely smooth, as the loss is slightly worsened some epochs, but the overall trend is still downwards.  This is all reflected in the training accuracy as well, as we see similar behaviour until epoch 50, with the same oscillations from epoch to epoch. To ensure that the last bit of performance improvements is not just overfitting, we of course also run a validation test at the end. Our separate validation testing shows that we are not entirely overfitting, as it performs at about 97% accuracy on the test set
+![image](figures/training_statistics.png). We have chosen to keep it simple in this part, due to time constraints, as we would rather focus on other parts of the project. As seen in the picture, we have simply chosen to graph the testing of our model, which shows the loss and accuracy for each epoch. We see in the graph that the loss starts out high, but quickly drops down over the first 1-3 epochs. After this point, we see diminishing returns running aditional epochs. That is not to say that it is without cause however, as we still see some improvements all the way to epoch 50. The graph also reveals that the process is not entirely smooth, as the loss is slightly worsened some epochs, but the overall trend is still downwards.  This is all reflected in the training accuracy as well, as we see similar behaviour until epoch 50, with the same oscillations from epoch to epoch. To ensure that the last bit of performance improvements is not just overfitting, we of course also run a validation test at the end. Our separate validation testing shows that we are not entirely overfitting, as it performs at about 97% accuracy on the test set
 
 ### Question 15
 
@@ -555,7 +555,7 @@ We managed to use GCP own monitoring tools, we did not manage to deploy a sideca
 >
 > Answer:
 
-![alt text](figures/image.png)
+![alt text](figures/credit_1_seb.png)
 Figure above gives an overview of spent credit which is quite miniscule. 13.62 DKK. The majority of the cost is seen to be Artifact registry followed by cloud storage. Most likely since we have had a lot of build pulling data from cloud storage and using cloud build and pushing images. We have not served very many request on our api or trained very much on vertex ai, due to the missing GPU allocation, hence the low cost. However, in a real world scenario compute costs would be expected to exceed storage, particularly because large sweeps of hyperparameters would be resource intensive, as would be serving inference requests on the model, as they require fairly large machines to operate. Not withstanding that actual GPU usage, which would be needed is expensive comparatively.
 
 ### Question 28
@@ -589,7 +589,7 @@ We have not implemented anything ekstra.
 >
 > Answer:
 
-victor
+![image](figures/architecture_diagram.drawio.png)
 
 ### Question 30
 
@@ -621,4 +621,13 @@ In general getting familiar with the cloud platform took a little effort, since 
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
-Sebastian
+Student s201700 was in charge setting up our dataset preprocessing, and the test suite for our code, as well as DVC.
+
+Student s232773 set up environments, linting, docker containers, as well as monitoring and alerts on GCP.
+
+Student s204426 setup the git structure, the model and its training, as well as hyperparameter config and logging.
+
+Student S144463 setup CICD in github actions, api code and build/deploy in GCP.
+
+All members in general contributed to the code, and cloud setup as we worked together a lot doing pair programming to figure things out.
+We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.

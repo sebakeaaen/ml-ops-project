@@ -4,6 +4,7 @@ import os
 
 client = TestClient(app)
 
+
 def test_classify_endpoint_success():
     """Test successful image classification endpoint with flexible assertions."""
     image_path = "data/raw/Pistachio_Image_Dataset/Pistachio_Image_Dataset/Kirmizi_Pistachio/kirmizi (2).jpg"
@@ -20,11 +21,13 @@ def test_classify_endpoint_success():
     elif response.status_code == 500:
         print(f"API Error: {response.json()['detail']}")
 
+
 def test_classify_endpoint_failure():
     """Test image classification endpoint with invalid data."""
     client = TestClient(app)
     response = client.post("/classify/", files={"data": ("test.txt", b"invalid data")})
     assert response.status_code == 500, "Expected status code 500"
+
 
 def test_metrics_endpoint():
     """Test if the metrics endpoint is accessible."""
