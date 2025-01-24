@@ -279,7 +279,7 @@ And although we didn’t strictly use branches and PRs, this practice might have
 >
 > Answer:
 
-Victor. KAggle download broke, saved by DVC.
+Yes, we did use DVC for data management along the project, which greatly improved the workflow. At first we were downloading the data from Kaggle, but because it was breaking, we included DVC, which was hosted remotely hosted in a bucket. It is important to say, that since the data did not have versions and it was always the same, version control for that was not strictly necessary. However, a version contorl of the data would be very beneficial when storing efficiently and helping save storage. The DVC enhanced the reproducibility of the project, as anyone on the team is able to get the data using DVC.
 
 
 ### Question 11
