@@ -231,8 +231,8 @@ In total we have implemented 13 tests. The tests focused on three specific parts
 
 Overall summary
 
-- **Total Statements:** 288  
-- **Total Missed:** 145  
+- **Total Statements:** 288
+- **Total Missed:** 145
 - **Overall Coverage:** 50%
 
 Script summary
@@ -517,7 +517,7 @@ We did deploy it into cloud. First we dockerized the application making sure to 
 > *before the service crashed.*
 >
 > Answer:
-As mentioned previously we performed unit testing of our API using the pytest framework, which allowed us to verify the correct functioning of key endpoints such as /classify/ and /metrics/. 
+As mentioned previously we performed unit testing of our API using the pytest framework, which allowed us to verify the correct functioning of key endpoints such as /classify/ and /metrics/.
 
 We did not not load test our API due to time constraint. However, to load test this API we would use Locust. First we would prepare a set of sample images in the correct format and ensure they mimic real-world inputs. Then use a test script to send multiple POST requests to the /classify/ endpoint with the sample images as payloads.
 
