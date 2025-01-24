@@ -606,11 +606,11 @@ In general getting familiar with the cloud platform took a little effort, since 
 
 Student s201700 was in charge setting up our dataset preprocessing, and the test suite for our code, as well as DVC.
 
-s232773 set up environments, linting, docker containers, as well as monitoring and alerts on GCP.
+Student s232773 set up environments, linting, docker containers, as well as monitoring and alerts on GCP.
 
-s204426 setup the git structure, the model and its training, as well as hyperparameter config and logging.
+Student s204426 setup the git structure, the model and its training, as well as hyperparameter config and logging.
 
-S144463 setup CICD in github actions, api code and build/deploy in GCP.
+Student S144463 setup CICD in github actions, api code and build/deploy in GCP.
 
 All members in general contributed to the code, and cloud setup as we worked together a lot doing pair programming to figure things out.
 We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.
