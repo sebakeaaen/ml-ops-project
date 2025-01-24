@@ -300,7 +300,7 @@ Our continuous integration is organized into 4 files specifying workflows in git
 >
 > Answer:
 
-We used config files with hydra, and logged each experiment and its hyperparameters using CSV logging and pl.lightning. The code could then be executed as simply as: python train.py. Hyperparameters could be changed individually in the command line, or set to a entirely different preset config.
+We used config files with hydra, and logged each experiment and its hyperparameters using CSV logging and pl.lightning. The code could then be executed as simply as: python train.py. Hyperparameters could be changed individually in the command line, or set to a entirely different preset config. At present, we have initialised 2 exp configs.
 
 ### Question 13
 
@@ -315,7 +315,7 @@ We used config files with hydra, and logged each experiment and its hyperparamet
 >
 > Answer:
 
-As said in the previous question, every time the model is trained or evaluated, its hyperparameters are logged, as well as its performance. This helps keep track of the progress, as well as the optimal hyperparameters.
+As said in the previous question, every time the model is trained or evaluated, its hyperparameters are logged, as well as its performance. This helps keep track of the progress, and the configuration that lead to that specific performance. If a specific experiments needs to be reproduced, we can simply find it in the log folder, and use the hyperparameter file recorded in it. The default behaviour of logging also saves the model checkpoints for each experiment, which means saving the weights, biases etc. from the model during training. However, due to space constraints, we have elected to disable this behaviour for  now.
 
 ### Question 14
 
@@ -332,7 +332,7 @@ As said in the previous question, every time the model is trained or evaluated, 
 >
 > Answer:
 
---- ![image](reports\figures\training_statistics.png). As seen in the picture, we have simply chosen to graph the testing of a model, which shows the loss and accuracy for each epoch. ---
+![image](reports\figures\training_statistics.png). We have chosen to keep it simple in this part, due to time constraints, as we would rather focus on other parts of the project. As seen in the picture, we have simply chosen to graph the testing of our model, which shows the loss and accuracy for each epoch. We see in the graph that the loss starts out high, but quickly drops down over the first 1-3 epochs. After this point, we see diminishing returns running aditional epochs. That is not to say that it is without cause however, as we still see some improvements all the way to epoch 50. The graph also reveals that the process is not entirely smooth, as the loss is slightly worsened some epochs, but the overall trend is still downwards.  This is all reflected in the training accuracy as well, as we see similar behaviour until epoch 50, with the same oscillations from epoch to epoch. To ensure that the last bit of performance improvements is not just overfitting, we of course also run a validation test at the end. Our separate validation testing shows that we are not entirely overfitting, as it performs at about 97% accuracy on the test set
 
 ### Question 15
 
@@ -362,7 +362,7 @@ We used docker images in our project, setting them up on Google Cloud Platform (
 >
 > Answer:
 
-Debugging methods depended on the individual group member. While writing the model, no serious bugs occured that required the professional debugger, as they were simply resolved with a walkthrough of the code.
+Debugging methods depended on the individual group member. While writing the model, no serious bugs occurred that required the professional debugger, as they were simply resolved with a walkthrough of the code (ensuring that the math and configuration options was configured as intended). In this project we chose not to focus on further model optimizations beyond the basics, as we would rather focus on other aspects. As such, profiling was not attempted.This does not mean that we expect the code to be perfect at all, but for our purposes and especially through the use of a gpu, it was fast enough.
 
 ## Working in the cloud
 
