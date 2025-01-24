@@ -281,7 +281,7 @@ Victor. KAggle download broke, saved by DVC.
 >
 > Answer:
 
-Our continuous integration is organized into 4 files specifying workflows in github actions: cml_data.yaml a workflow listening for changes on the .dvc directory or any other *.dvc files, such that when changes are made to the version controlled dataset, some summary statistics and examples from the dataset are compiled into a report which is then posted as a comment to the commit in github, allowing one to see how the changes affect the dataset. The codecheck.yaml file runs the ruff linter and formatter. For this project they are just run on push to the main branch, but in a real project they could be run on pull requests and made to prevent any merges unless they complete successfully, i.e. pass the checks. The pre-commit.yaml file runs some hooks, only basic ones for our case, like removing EOF and whitespace, checking for large files etc. but the pre-commit framework can offer a lot more checks if wanted too. The test_and_build.yaml file runs the unit test suite, builds the training and api docker images in GCP cloud build, pushes them to artifact registry and deploys the api image as a container to cloud run. The dependabot runs monthly suggesting library updates, and can also suggest updates to libraries, if security issues are reported.
+Our continuous integration is organized into 4 files specifying workflows in github actions: cml_data.yaml a workflow listening for changes on the .dvc directory or any other *.dvc files, such that when changes are made to the version controlled dataset, some summary statistics and examples from the dataset are compiled into a report which is then posted as a comment to the commit in github, allowing one to see how the changes affect the dataset. The codecheck.yaml file runs the ruff linter and formatter. For this project they are just run on push to the main branch, but in a real project they could be run on pull requests and made to prevent any merges unless they complete successfully, i.e. pass the checks. The pre-commit.yaml file runs some hooks, only basic ones for our case, like removing EOF and whitespace, checking for large files etc. but the pre-commit framework can offer a lot more checks if wanted too. The test_and_build.yaml file runs the unit test suite, builds the training and api docker images in GCP cloud build, pushes them to artifact registry and deploys the api image as a container to cloud run. The dependabot runs monthly suggesting library updates, and can also suggest updates to libraries, if security issues are reported. We are using caching for pip so that libraries don't have to be pulled from the repo each time our workflows are run. We also make use of the matrix strategy in github, allowing us to run our tests on the permutations of several OS and python versions. An example of a triggered workflow using these features can be seen here <https://github.com/sebakeaaen/ml-ops-project/actions/runs/12942141464> which tests, builds and deploys our API for the pistachio classifier. Here is an example of CML adding a comment to a commit, when triggerede by changes in the dataset <https://github.com/sebakeaaen/ml-ops-project/commit/8441345d34e2f3defb831c1b577d6f8150a80f92>
 
 ## Running code and tracking experiments
 
@@ -379,7 +379,9 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
-Sebastian
+We made use of the GCP cloud storage service creating buckets for version controlling our dataset and model weights. Cloud storage also works with Cloud build, which we utilized to build both our docker training images and api images, which got pushed to the service artifact registry. We used the Vertex AI service to train our model in the cloud. It is wrapper that allows for easy deployment of AI workloads, automatically mounting storage compute resources etc. In the end, a lot of the services are just wrappers for the same hypervisor. We used Cloud run to deploy our API as a service. We used Cloud logging to debug api deployments, and training and review telemetry in the form of logs. We used cloud monitoring to monitor the performance and uptime of our API. We used the Identity & Access Management service to manage resources and who could access them, e.g. creating service accounts for github actions, allowing permissions for everyone in the group.
+
+![used apis](figures/api_1_seb.png)
 
 ### Question 18
 
@@ -394,16 +396,20 @@ Sebastian
 >
 > Answer:
 
-Sebastian
+As alluded to above we did not use the raw compute engine, but instead used several managed services to deploy our images. We used Vertex AI to train our model, although in practice the final model we trained on a local GPU, since Google never allocated one to us, but we did run a few examples with a few epochs on vertex, with a n1-highmem-2 machine which has specs as seen in the following link <https://gcloud-compute.com/n1-highmem-2.html>. Additionally we used the compute engine with the managed service cloud run, requesting a machine with 2Gi of memmory, corresponding to 1 vCPU according to this link <https://cloud.google.com/run/docs/configuring/services/memory-limits#:~:text=2%20GiB,1%20vCPU>. We will also have used the engine when building etc. but the exact VMs, or rather containers probably, spun up for these purposes we have not investigated. Again a lot of these services are just wrappers for the same hypervisor or container orchestrator, which is also a reason cloud infra as a business model works, you can allocate resources virtually as demand fluctuates.
 
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
->
-> Answer:
 
-Sebastian
+> Answer:
+We used seperate containers for version controlling the dataset and training the model / deploying the API. This was because the version aware bucket setup did not work for us using DVC. DVC are also discontinuing the support for the version aware remotes <https://github.com/iterative/dvc/issues/10306#:~:text=Unfortunately%2C%20I%20don%27t%20see%20a%20quick%20fix%2C%20and%20we%20are%20moving%20towards%20dropping%20support%20for%20version%2Daware%20remotes%20due%20to%20lots%20of%20small%20issues%20and%20inconsistencies%20like%20this%20one%2C%20so%20I%20am%20going%20to%20close%20this%20and%20suggest%20using%20traditional%20remotes%20to%20avoid%20these%20problems.>
+
+So for the dataset we used classical remote, which stores the hashed diffs explicitly, and created a spereate bucket to use, which gets auto mounted when using managed services like vertex and cloud run.
+
+![dvc bucket](figures/bucket_1_seb.png)
+![api and train bucket](figures/bucket_2_seb.png)
 
 ### Question 20
 
@@ -412,7 +418,8 @@ Sebastian
 >
 > Answer:
 
-Sebastian
+![this figure](figures/bucket_1_seb.png)
+![this figure](figures/bucket_2_seb.png)
 
 ### Question 21
 
