@@ -572,7 +572,7 @@ We have not implemented anything ekstra.
 >
 > Answer:
 
-victor
+![image](figures/architecture_diagram.drawio.png)
 
 ### Question 30
 
