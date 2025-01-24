@@ -214,7 +214,7 @@ We implemented both linting and formatting using ruff, implemented as both pre-c
 >
 > Answer:
 
---- question 7 fill here ---
+Cecilie
 
 ### Question 8
 
@@ -229,7 +229,7 @@ We implemented both linting and formatting using ruff, implemented as both pre-c
 >
 > Answer:
 
---- question 8 fill here ---
+Cecilie
 
 ### Question 9
 
@@ -263,7 +263,7 @@ And although we didn’t strictly use branches and PRs, this practice might have
 >
 > Answer:
 
---- question 10 fill here ---
+Victor. KAggle download broke, saved by DVC.
 
 
 ### Question 11
@@ -347,7 +347,7 @@ As said in the previous question, every time the model is trained or evaluated, 
 >
 > Answer:
 
-We used docker images in our project, setting them up on Google Cloud Platform (GCP).
+Sebastian
 
 ### Question 16
 
@@ -379,7 +379,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 17 fill here ---
+Sebastian
 
 ### Question 18
 
@@ -394,7 +394,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 18 fill here ---
+Sebastian
 
 ### Question 19
 
@@ -403,7 +403,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 19 fill here ---
+Sebastian
 
 ### Question 20
 
@@ -412,7 +412,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 20 fill here ---
+Sebastian
 
 ### Question 21
 
@@ -421,7 +421,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 21 fill here ---
+Sebastian
 
 ### Question 22
 
@@ -436,7 +436,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 22 fill here ---
+Sebastian
 
 ## Deployment
 
@@ -453,7 +453,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 23 fill here ---
+Sebstian
 
 ### Question 24
 
@@ -469,7 +469,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 24 fill here ---
+Sebastian
 
 ### Question 25
 
@@ -484,7 +484,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 25 fill here ---
+cecilie
 
 ### Question 26
 
@@ -499,7 +499,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 26 fill here ---
+Sebstian
 
 ## Overall discussion of project
 
@@ -518,7 +518,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 27 fill here ---
+Victor
 
 ### Question 28
 
@@ -534,7 +534,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 28 fill here ---
+Victor
 
 ### Question 29
 
@@ -551,7 +551,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 29 fill here ---
+victor
 
 ### Question 30
 
@@ -565,7 +565,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 30 fill here ---
+Victor
 
 ### Question 31
 
@@ -583,4 +583,4 @@ Debugging methods depended on the individual group member. While writing the mod
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
---- question 31 fill here ---
+Sebastian
