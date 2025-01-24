@@ -214,7 +214,7 @@ We implemented both linting and formatting using ruff, implemented as both pre-c
 >
 > Answer:
 
-Cecilie
+In total we have implemented 13 tests. The tests focused on three specific parts of the code: data processing, model training and API handling. The first tests were used to confirm that all images had been properly resized, preprocessed and stored. The second set of tests was for the model. More specifically, we wrote tests for the model's forward pass, training step, and evaluation to ensure that they operated as expected. Finally, we implemented a few tests for the API endpoints to ensure the response integrity and proper error handling, as well as to check the accessibility of the metrics.
 
 ### Question 8
 
@@ -229,7 +229,23 @@ Cecilie
 >
 > Answer:
 
-Cecilie
+Overall summary
+
+- **Total Statements:** 288  
+- **Total Missed:** 145  
+- **Overall Coverage:** 50%
+
+Script summary
+
+- **api.py:** 72%
+- **data.py:** 50%
+- **dataset_statistics.py:** 90%
+- **evaluate.py:** 0%
+- **model.py:** 64%
+- **train.py:** 0%
+- **utils.py:** 92%
+
+Our project currently has a code coverage of 50%, which includes tests for data processing, model training, and API interactions. While achieving 100% coverage might seem ideal, it doesn’t guarantee an error-free codebase. Coverage metrics only indicate which lines of code were executed, but they don’t account for untested edge cases, unexpected inputs, or real-world conditions. We focused on implementing tests that were meaningful to our project and most useful during development. Once the project was more or less put together, we used experiments and code outputs to validate our code. This is not to say that the tests guarantee a completely error-free codebase, but they ensure that the functions and components we consider critical are tested. In conclusion we can say that achieving high coverage is important, but focusing on the quality and relevance of tests is even more crucial than just aiming for higher numbers.
 
 ### Question 9
 
@@ -501,6 +517,7 @@ We did deploy it into cloud. First we dockerized the application making sure to 
 > *before the service crashed.*
 >
 > Answer:
+As mentioned previously we performed unit testing of our API using the pytest framework, which allowed us to verify the correct functioning of key endpoints such as /classify/ and /metrics/. 
 
 We did not not load test our API due to time constraint. However, to load test this API we would use Locust. First we would prepare a set of sample images in the correct format and ensure they mimic real-world inputs. Then use a test script to send multiple POST requests to the /classify/ endpoint with the sample images as payloads.
 
