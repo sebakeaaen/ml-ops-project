@@ -281,7 +281,7 @@ Victor. KAggle download broke, saved by DVC.
 >
 > Answer:
 
-Our continuous integration is organized into 4 files specifying workflows in github actions: cml_data.yaml a workflow listening for changes on the .dvc directory or any other *.dvc files, such that when changes are made to the version controlled dataset, some summary statistics and examples from the dataset are compiled into a report which is then posted as a comment to the commit in github, allowing one to see how the changes affect the dataset. The codecheck.yaml file runs the ruff linter and formatter. For this project they are just run on push to the main branch, but in a real project they could be run on pull requests and made to prevent any merges unless they complete successfully, i.e. pass the checks. The pre-commit.yaml file runs some hooks, only basic ones for our case, like removing EOF and whitespace, checking for large files etc. but the pre-commit framework can offer a lot more checks if wanted too. The test_and_build.yaml file runs the unit test suite, builds the training and api docker images in GCP cloud build, pushes them to artifact registry and deploys the api image as a container to cloud run. The dependabot runs monthly suggesting library updates, and can also suggest updates to libraries, if security issues are reported. We are using caching for pip so that libraries don't have to be pulled from the repo each time our workflows are run. We also make use of the matrix strategy in github, allowing us to run our tests on the permutations of several OS and python versions. An example of a triggered workflow using these features can be seen here <https://github.com/sebakeaaen/ml-ops-project/actions/runs/12942141464> which tests, builds and deploys our API for the pistachio classifier. Here is an example of CML adding a comment to a commit, when triggerede by changes in the dataset <https://github.com/sebakeaaen/ml-ops-project/commit/8441345d34e2f3defb831c1b577d6f8150a80f92>
+Our continuous integration is organized into 4 files specifying workflows in github actions: cml_data.yaml a workflow listening for changes on the .dvc directory or any other *.dvc files, such that when changes are made to the version controlled dataset, some summary statistics and examples from the dataset are compiled into a report which is then posted as a comment to the commit in github, allowing one to see how the changes affect the dataset. The codecheck.yaml file runs the ruff linter and formatter. For this project they are just run on push to the main branch, but in a real project they could be run on pull requests and made to prevent any merges unless they complete successfully, i.e. pass the checks. The pre-commit.yaml file runs some hooks, only basic ones for our case, like removing EOF and whitespace, checking for large files etc. but the pre-commit framework can offer a lot more checks if wanted too. The test_and_build.yaml file runs the unit test suite, builds the training and api docker images in GCP cloud build, pushes them to artifact registry and deploys the api image as a container to cloud run. The dependabot runs monthly suggesting library updates and finding potential security issues. We are using caching for pip so that libraries don't have to be pulled from the repo each time our workflows are run. We also make use of the matrix strategy in github, allowing us to run our tests on the permutations of several OS and python versions. An example of a triggered workflow using these features can be seen here <https://github.com/sebakeaaen/ml-ops-project/actions/runs/12942141464> which tests, builds and deploys our API for the pistachio classifier. Here is an example of CML adding a comment to a commit, when triggerede by changes in the dataset <https://github.com/sebakeaaen/ml-ops-project/commit/8441345d34e2f3defb831c1b577d6f8150a80f92>
 
 ## Running code and tracking experiments
 
@@ -347,7 +347,9 @@ As said in the previous question, every time the model is trained or evaluated, 
 >
 > Answer:
 
-Sebastian
+For our project we had primarily two images, one used for training in the cloud and one used for deploying our API. We also had a secondary training image we used to train locally pulling dvc data instead of mounting a bucket as a volume, which was also used while doing experimentation with version/vs non-version controlled buckets. The dockerfile used to deploy our API can be seen here as an example <https://github.com/sebakeaaen/ml-ops-project/blob/main/dockerfiles/api_cloud.dockerfile> When running this image one has to specificy the port env variable for local dev. e.g. : `docker run -p 8080:8080 -e PORT=8080 api:latest`
+
+When running the training image one could also specify command line args like `--experiment.n_epochs=20` to customized training runs. Docker were primarily used to guarantee consistent behaviour across local dev and cloud deployment.
 
 ### Question 16
 
@@ -362,7 +364,9 @@ Sebastian
 >
 > Answer:
 
-Debugging methods depended on the individual group member. While writing the model, no serious bugs occurred that required the professional debugger, as they were simply resolved with a walkthrough of the code (ensuring that the math and configuration options was configured as intended). In this project we chose not to focus on further model optimizations beyond the basics, as we would rather focus on other aspects. As such, profiling was not attempted.This does not mean that we expect the code to be perfect at all, but for our purposes and especially through the use of a gpu, it was fast enough.
+Debugging methods depended on the individual group member. While writing the model, not too many serious bugs occurred that required steping through with the debugger, as they were simply resolved with a walkthrough of the code (ensuring that the math and configuration options was configured as intended). This is also due to pytorch handling a lot of the boileplate. However for the api use was made, also of a remote debugger to analyze dimension of some faulty outputs, as well as stepping through the setting of some config params that were behaving unexpectedly.
+
+In this project we chose not to focus on further code performance optimizations, since our model and code were pretty rudimentary and tested models, we would rather focus on other aspects. As such, profiling was not attempted. This does not mean that we expect the code to be perfect at all, but for our purposes and especially through the use of a gpu, it was fast enough.
 
 ## Working in the cloud
 
@@ -427,7 +431,7 @@ So for the dataset we used classical remote, which stores the hashed diffs expli
 >
 > Answer:
 
-![build history](figures/build_2_seb.png)
+![build history](figures/build_1_seb.png)
 
 ### Question 22
 
@@ -479,17 +483,11 @@ We did deploy it into cloud. First we dockerized the application making sure to 
 
 /classify endpoint could be invoked e.g.:
 
-curl -X 'POST' \
-  'https://pistachio-api-266814087920.europe-west3.run.app/classify/' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'data=@data/raw/Pistachio_Image_Dataset/Pistachio_Image_Dataset/Kirmizi_Pistachio/kirmizi (2).jpg'
+`curl -X 'POST' \ 'https://pistachio-api-266814087920.europe-west3.run.app/classify/' \ -H 'accept: application/json' \ -H 'Content-Type: multipart/form-data' \ -F 'data=@data/raw/Pistachio_Image_Dataset/Pistachio_Image_Dataset/Kirmizi_Pistachio/kirmizi (2).jpg'`
 
 /metrics endpoint could be invoked e.g.:
 
-curl -X 'POST' \
-  'https://pistachio-api-266814087920.europe-west3.run.app/metrics/' \
-  -H 'accept: application/json'
+`curl -X 'POST' \ 'https://pistachio-api-266814087920.europe-west3.run.app/metrics/' \ -H 'accept: application/json'`
 
 ### Question 25
 
@@ -504,7 +502,9 @@ curl -X 'POST' \
 >
 > Answer:
 
-cecilie
+We did not not load test our API due to time constraint. However, to load test this API we would use Locust. First we would prepare a set of sample images in the correct format and ensure they mimic real-world inputs. Then use a test script to send multiple POST requests to the /classify/ endpoint with the sample images as payloads.
+
+We would start with a small number of users and gradually increase concurrency to simulate high-traffic conditions. While doing this we would keep an eye on key performance metrics like response time, throughput, error rate, and resource utilization. Monitor Prometheus metrics (/metrics endpoint) to validate latency and error tracking. Finally, identify bottlenecks (e.g., preprocessing or inference) and test the API's behavior under sustained load and stress conditions.
 
 ### Question 26
 
@@ -538,7 +538,8 @@ We managed to use GCP own monitoring tools, we did not manage to deploy a sideca
 >
 > Answer:
 
-Victor
+![alt text](figures/image.png)
+Figure above gives an overview of spent credit which is quite miniscule. 13.62 DKK. The majority of the cost is seen to be Artifact registry followed by cloud storage. Most likely since we have had a lot of build pulling data from cloud storage and using cloud build and pushing images. We have not served very many request on our api or trained very much on vertex ai, due to the missing GPU allocation, hence the low cost. However, in a real world scenario compute costs would be expected to exceed storage, particularly because large sweeps of hyperparameters would be resource intensive, as would be serving inference requests on the model, as they require fairly large machines to operate. Not withstanding that actual GPU usage, which would be needed is expensive comparatively.
 
 ### Question 28
 
@@ -554,7 +555,7 @@ Victor
 >
 > Answer:
 
-Victor
+We have not implemented anything ekstra.
 
 ### Question 29
 
@@ -585,7 +586,7 @@ victor
 >
 > Answer:
 
-Victor
+In general getting familiar with the cloud platform took a little effort, since none of us have worked with GCP before. More broadly, in particular two areas were a source of pain. Managing permissions, building and deploying. Particularly understanding which permissions are needed to access which services in GCP is a struggle sometimes, especially if you are trying to adhere to a least priviliges principle. The naming of these roles and accesses is also not always intuitive. In a similar vein getting the syntax correct for some CLI and configs. In this regard gen AI was helpfull, but also did hallucinate mix up old/new/different APIs, and we did have to reference docs. In general doing stuff that had to build was also a big pain due to build times, since one would necessarily make errors, but testing the configs for the Github and GCP build tools took a long time waiting for build to fail, it is a slower process iterating on this. Finally for deployment of our API specifiaclly we did struggle with getting the correct ports open and understanding why it wouldn't deploy in a case were no logs were generated, but only vents from GCP revealed a OOM error was the culprit. To some degree a lot of the tasks were also a little hard to work on in parallel. We also spent a lot of time debugging DVC, before moving away from version controlled buckets to classic buckets, since these also inherently have issues and DVC is moving away from them as mentioned earlier.
 
 ### Question 31
 
