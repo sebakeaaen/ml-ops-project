@@ -244,7 +244,11 @@ We implemented both linting and formatting using ruff, implemented as both pre-c
 >
 > Answer:
 
-We mainly worked on the main branch, as we worked rather fast-paced and relied on each others pushes to continue. Working with branches and pull requests is almost a necessity in professional environments, as different versions of the project and features are encapsulated by isolated branches. This prevents the whole system from breaking if conflicting pushed changes are pushed to main, as pull requests are reviewed before merges. However, in our case, we did not find it strictly necessary, so we did not use branches.
+We primarily worked on the main branch throughout our project due to the fast-paced nature of our project and almost always beeing in constant and direct contact. This approach allowed us to rely on each other's pushes in real time, ensuring we could quickly iterate and build on one another's contributions without delays.
+
+While working directly on the main branch worked for us in this context, it’s worth noting that professional environments often rely on branches and pull requests as a best practice. Branches are used to encapsulate different features or versions of a project, isolating changes to ensure the main branch remains stable, and prevent things like system-breaking conflicts.
+
+And although we didn’t strictly use branches and PRs, this practice might have been helpful for organization and quality control, like preventing merges that don't passs CICD checks. Worth noting though, that even some professional teams opt to work on a single branch, relying on small, incremental commits and feature flags to maintain stability. Git workflows can vary substantially based on a teams preferences and goals.
 
 ### Question 10
 
@@ -259,7 +263,8 @@ We mainly worked on the main branch, as we worked rather fast-paced and relied o
 >
 > Answer:
 
-The group did make use of DVC, as we directly download the dataset from Kaggle and store it in the repository. We then move it to the wanted folder and work on it.
+--- question 10 fill here ---
+
 
 ### Question 11
 
@@ -276,7 +281,7 @@ The group did make use of DVC, as we directly download the dataset from Kaggle a
 >
 > Answer:
 
---- question 11 fill here ---
+Our continuous integration is organized into 4 files specifying workflows in github actions: cml_data.yaml a workflow listening for changes on the .dvc directory or any other *.dvc files, such that when changes are made to the version controlled dataset, some summary statistics and examples from the dataset are compiled into a report which is then posted as a comment to the commit in github, allowing one to see how the changes affect the dataset. The codecheck.yaml file runs the ruff linter and formatter. For this project they are just run on push to the main branch, but in a real project they could be run on pull requests and made to prevent any merges unless they complete successfully, i.e. pass the checks. The pre-commit.yaml file runs some hooks, only basic ones for our case, like removing EOF and whitespace, checking for large files etc. but the pre-commit framework can offer a lot more checks if wanted too. The test_and_build.yaml file runs the unit test suite, builds the training and api docker images in GCP cloud build, pushes them to artifact registry and deploys the api image as a container to cloud run. The dependabot runs monthly suggesting library updates, and can also suggest updates to libraries, if security issues are reported.
 
 ## Running code and tracking experiments
 
