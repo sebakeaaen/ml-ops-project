@@ -57,7 +57,7 @@ will check the repositories and the code to verify your answers.
 * [x] Remember to fill out the `requirements.txt` and `requirements_dev.txt` file with whatever dependencies that you
     are using (M2+M6)
 * [x] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
-* [ ] Do a bit of code typing and remember to document essential parts of your code (M7)
+* [X] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [x] Setup version control for your data or part of your data (M8)
 * [x] Add command line interfaces and project commands to your code where it makes sense (M9)
 * [x] Construct one or multiple docker files for your code (M10)
@@ -73,7 +73,7 @@ will check the repositories and the code to verify your answers.
 ### Week 2
 
 * [x] Write unit tests related to the data part of your code (M16)
-* [] Write unit tests related to model construction and or model training (M16)
+* [ ] Write unit tests related to model construction and or model training (M16)
 * [x] Calculate the code coverage (M16)
 * [x] Get some continuous integration running on the GitHub repository (M17)
 * [x] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
@@ -95,8 +95,8 @@ will check the repositories and the code to verify your answers.
 
 * [ ] Check how robust your model is towards data drifting (M27)
 * [ ] Deploy to the cloud a drift detection API (M27)
-* [ ] Instrument your API with a couple of system metrics (M28)
-* [X] Setup cloud monitoring of your instrumented application (M28)
+* [X] Instrument your API with a couple of system metrics (M28)
+* [ ] Setup cloud monitoring of your instrumented application (M28)
 * [X] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)
 * [ ] If applicable, optimize the performance of your data loading using distributed data loading (M29)
 * [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30)
@@ -129,7 +129,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
-s204426, s144463, s201700, s232773
+s144463, s201700, s204426, s232773
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -143,7 +143,9 @@ s204426, s144463, s201700, s232773
 >
 > Answer:
 
---- answer here ---
+We used several third-party frameworks during the development of out project. We used the PyTorch image models library (timm) for our modelling, using a pretrained resnet model from the same library which we then tuned to our data. Additionally we used pytorch lightning to decrease the amount of boilerplate needed in our code, and using its out the box functionality to more easily parameterize our training loops for various experiments. Pytorch lightning makes it easy to pipe params from hydra into our training loops without much effort. If we had gotten to a place were we were going to do multi gpu or multi node training, pytorch lightning would have shone particularly well.
+
+
 
 ## Coding environment
 
@@ -163,7 +165,7 @@ s204426, s144463, s201700, s232773
 >
 > Answer:
 
-To automatically generate and manage the requirements.txt file, which lists all project dependencies, we used the pipreqs package. This tool ensures that only the packages actually used in the project are included, rather than all the packages installed in the environment. Since we were developing in a separate conda environment, we could also use the pip freeze command to capture the list of dependencies. It's important to update the requirements.txt file whenever changes are made to keep the dependencies current. When setting up the development environment, the pip install -r requirements.txt command replicates the necessary environment. It's recommended to first create a new Python environment (e.g., with conda create --name my_env) and then install the dependencies.
+We managed the dependencies in our project using the pip package manager manually adding libraries to our requirements.txt and requirements_dev.txt files as we introduced dependencies during development. Dependencies were added with fixed versions to avoid issues with incompatability or different versions of libraries beeing pulled locally versus when building in cloud. The split of requirements into several files, is to distinguish libraries used exclusively for testing and development, from libraries needed for deployment. To setup our dev environment one must install python 3.11 and create a virtual environment, we used venv, as the conda ecosystem has become problematic since they changed their license to prohibit commercial usage. The simply installing the requirements files. And maybe install some build tools needed for python library binaries. Cloning the git repo, authorizing gcloud bucket access and running DVC pull should get the developer environment setup.
 
 ### Question 5
 
@@ -179,7 +181,7 @@ To automatically generate and manage the requirements.txt file, which lists all 
 >
 > Answer:
 
-We have pretty much followed the cookiecutter template as stated, which means we filled out folders such as configs, data, src etc. We have additionally added a logs folder, which is only on the local machine as it is git ignored, for logging each experiment execution. The src/m,lops folder contains the python code for our model. This is both the model class but also the training, prediction and evaluation scripts for our model.
+We have pretty much followed the cookiecutter template as stated in our README. However we have removed the notebooks directory as everything is operated by scripts. Outside version control some folders also exist, like the logs folder for logging each experiment execution, and persisting other logs of interest. Another local folder is temp, used to intermediate files, like the ones used for generating CML comments for github. Folders for data and model weights, and credentials are also outside version control. The src/mlops folder contains the core python code for our model, including its training and evaluation and the code needed to serve the model too, as well as some helper functions for stats visualisation and such. A .dvc folder for DVC configuration and cache has been added to the template too. We used the .github folder for all the github actions CICD flows. The configs folder contains the configurations for various training experiments as mangaged by hydra. All the docker files both for local and cloud deployment are kept in the dockerfiles folder. We have the docs folder with the specs to generate the docs site. Finally we have the tests folder containing all the unit tests.
 
 ### Question 6
 
@@ -193,8 +195,7 @@ We have pretty much followed the cookiecutter template as stated, which means we
 > *concepts are important in larger projects because ... . For example, typing ...*
 >
 > Answer:
-
-We added comments to our code, to make it more understandable and easy to follow. We tried to follow the pep8 guidelines, to have a styandard format for our python code. In large projects, and more importantly, when multiple people are involved, it's essential to have a guideline for writing and formatting code. These guidelines help standardize the code, making it easier to read, understand, and maintain, whether by new team members or by yourself after a long time away from the project.
+We implemented both linting and formatting using ruff, implemented as both pre-commit hooks and CICD to enforce a common standard. Typing was also used for local checks but not implemented as continous integration. We added comments to our code where needed to make it more understandable and easy to follow. We tried to follow the pep8 guidelines, to have a standard format for our python code. In large projects, and more importantly, when multiple people and teams are involved, it's essential to have a guideline for writing and formatting code. These guidelines help standardize the code, making it easier to read, understand, and maintain, whether by new team members or by yourself after a long time away from the project.
 
 ## Version control
 
