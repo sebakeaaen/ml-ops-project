@@ -538,7 +538,7 @@ We managed to use GCP own monitoring tools, we did not manage to deploy a sideca
 >
 > Answer:
 
-![alt text](figures/image.png)
+![alt text](figures/credit_1_seb.png)
 Figure above gives an overview of spent credit which is quite miniscule. 13.62 DKK. The majority of the cost is seen to be Artifact registry followed by cloud storage. Most likely since we have had a lot of build pulling data from cloud storage and using cloud build and pushing images. We have not served very many request on our api or trained very much on vertex ai, due to the missing GPU allocation, hence the low cost. However, in a real world scenario compute costs would be expected to exceed storage, particularly because large sweeps of hyperparameters would be resource intensive, as would be serving inference requests on the model, as they require fairly large machines to operate. Not withstanding that actual GPU usage, which would be needed is expensive comparatively.
 
 ### Question 28
@@ -604,4 +604,13 @@ In general getting familiar with the cloud platform took a little effort, since 
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
-Sebastian
+Student s201700 was in charge setting up our dataset preprocessing, and the test suite for our code, as well as DVC.
+
+s232773 set up environments, linting, docker containers, as well as monitoring and alerts on GCP.
+
+s204426 setup the git structure, the model and its training, as well as hyperparameter config and logging.
+
+S144463 setup CICD in github actions, api code and build/deploy in GCP.
+
+All members in general contributed to the code, and cloud setup as we worked together a lot doing pair programming to figure things out.
+We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.
