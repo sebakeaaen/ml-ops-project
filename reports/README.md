@@ -418,8 +418,7 @@ So for the dataset we used classical remote, which stores the hashed diffs expli
 >
 > Answer:
 
-![this figure](figures/bucket_1_seb.png)
-![this figure](figures/bucket_2_seb.png)
+![artifact registry](figures/registry_1_seb.png)
 
 ### Question 21
 
@@ -428,7 +427,7 @@ So for the dataset we used classical remote, which stores the hashed diffs expli
 >
 > Answer:
 
-Sebastian
+![build history](figures/build_2_seb.png)
 
 ### Question 22
 
@@ -443,7 +442,7 @@ Sebastian
 >
 > Answer:
 
-Sebastian
+We did manage to train our model using vertex AI although only using CPUs as google would not assign us the resources: "We have received your quota request for agile-scheme-448123-f3 Unfortunately, we are unable to grant you additional quota at this time". We did it by setting up a docker image for training in the cloud which got built and pushed to artifact registry when pushing it to our github repo Then setting up a config file vertex_config.yaml which got passed to gcloud cli when "gcloud ai custom-jobs create -config=vertex_config.yaml --..." Then we also pointed the model and training loop to the buckets referenced above, by overriding the hydra params using command line args. The gcp buckets get mounted automatically with the vertex ai service.
 
 ## Deployment
 
@@ -460,7 +459,7 @@ Sebastian
 >
 > Answer:
 
-Sebstian
+Yes we managed to write an API for our model. We created a FastAPI-based application to perform the image classification using our resnet model. The API handles requests to classify uploaded images and also provides metrics for monitoring its performance. A custom lifespan manager was created which initializes and cleans up the model, which runs on either a GPU or CPU depending on availability. The /classify/ endpoint processes uploaded images by resizing, normalizing, and converting them into a format suitable for the model. It predicts the image's class and returns the result with confidence scores. Prometheus metrics, including counters and histograms, track requests, errors, and latency, providing insights into the application's performance and reliability.
 
 ### Question 24
 
@@ -476,7 +475,21 @@ Sebstian
 >
 > Answer:
 
-Sebastian
+We did deploy it into cloud. First we dockerized the application making sure to expose the ports needed for cloud run using environment envs. Then ran this locally testing the endpoints. Once this was running satisfactorily we added it to our CICD pipeline, such that when pushed to our repo the api image gets built and pushed to GCP, and cloud run gets called to deploy the image. cludbuild.yaml contains the args used to call cloud run, like increasing the memmory, since deployment failed for the standard memmory allocation, and allowing unauthenticated access e.g.
+
+/classify endpoint could be invoked e.g.:
+
+curl -X 'POST' \
+  'https://pistachio-api-266814087920.europe-west3.run.app/classify/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'data=@data/raw/Pistachio_Image_Dataset/Pistachio_Image_Dataset/Kirmizi_Pistachio/kirmizi (2).jpg'
+
+/metrics endpoint could be invoked e.g.:
+
+curl -X 'POST' \
+  'https://pistachio-api-266814087920.europe-west3.run.app/metrics/' \
+  -H 'accept: application/json'
 
 ### Question 25
 
@@ -506,7 +519,7 @@ cecilie
 >
 > Answer:
 
-Sebstian
+We managed to use GCP own monitoring tools, we did not manage to deploy a sidecar for our custom metrics. However we became familiar with the GCP monitoring of services and setup SLOs with alarms that would send emails, if e.g. latency increased beyond acceptable levels. In the broad scheme of things we only managed to setup up very basic monitoring. In a production setting monitoring is a crucial and hard problem, and the key to sucessfully operating a lot of infrastructure. Getting monitoring right, so it reflects the user experience of interacting with the api, to manage costs, to catch model issues like drift, to catch bad actors interacting with the endpoint, resoource issues, etc. Particularly setting up alerts that are sensitive enough to were they catch issues, but don't fire often enough to were they become meaningless, is hard.
 
 ## Overall discussion of project
 

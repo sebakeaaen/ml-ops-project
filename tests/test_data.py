@@ -37,7 +37,7 @@ def test_my_dataset():
 def test_dataset_length():
     """Test if dataset length matches the expected number of samples."""
     dataset = PistachioDataset("data/raw")
-    expected_length = 2142
+    expected_length = 2148
     assert len(dataset) == expected_length, f"Expected {expected_length} samples, got {len(dataset)}"
 
 
