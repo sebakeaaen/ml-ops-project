@@ -214,7 +214,7 @@ We implemented both linting and formatting using ruff, implemented as both pre-c
 >
 > Answer:
 
---- question 7 fill here ---
+Cecilie
 
 ### Question 8
 
@@ -229,7 +229,7 @@ We implemented both linting and formatting using ruff, implemented as both pre-c
 >
 > Answer:
 
---- question 8 fill here ---
+Cecilie
 
 ### Question 9
 
@@ -263,7 +263,7 @@ And although we didn’t strictly use branches and PRs, this practice might have
 >
 > Answer:
 
---- question 10 fill here ---
+Victor. KAggle download broke, saved by DVC.
 
 
 ### Question 11
@@ -300,7 +300,10 @@ Our continuous integration is organized into 4 files specifying workflows in git
 >
 > Answer:
 
-We used config files with hydra, and logged each experiment and its hyperparameters using CSV logging and pl.lightning. The code could then be executed as simply as: python train.py. Hyperparameters could be changed individually in the command line, or set to a entirely different preset config.
+We used config files with hydra, and logged each experiment and its hyperparameters using CSV logging and pl.lightning. The code could then be executed as simply as: python train.py. Hyperparameters could be changed individually in the command line, or set to a entirely different preset config. Expand.
+
+Nojan
+
 
 ### Question 13
 
@@ -316,6 +319,8 @@ We used config files with hydra, and logged each experiment and its hyperparamet
 > Answer:
 
 As said in the previous question, every time the model is trained or evaluated, its hyperparameters are logged, as well as its performance. This helps keep track of the progress, as well as the optimal hyperparameters.
+
+Nojan
 
 ### Question 14
 
@@ -334,6 +339,8 @@ As said in the previous question, every time the model is trained or evaluated, 
 
 --- ![image](reports\figures\training_statistics.png). As seen in the picture, we have simply chosen to graph the testing of a model, which shows the loss and accuracy for each epoch. ---
 
+Nojan
+
 ### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
@@ -347,7 +354,7 @@ As said in the previous question, every time the model is trained or evaluated, 
 >
 > Answer:
 
-We used docker images in our project, setting them up on Google Cloud Platform (GCP).
+Sebastian
 
 ### Question 16
 
@@ -364,6 +371,8 @@ We used docker images in our project, setting them up on Google Cloud Platform (
 
 Debugging methods depended on the individual group member. While writing the model, no serious bugs occured that required the professional debugger, as they were simply resolved with a walkthrough of the code.
 
+Nojan
+
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
@@ -379,7 +388,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 17 fill here ---
+Sebastian
 
 ### Question 18
 
@@ -394,7 +403,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 18 fill here ---
+Sebastian
 
 ### Question 19
 
@@ -403,7 +412,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 19 fill here ---
+Sebastian
 
 ### Question 20
 
@@ -412,7 +421,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 20 fill here ---
+Sebastian
 
 ### Question 21
 
@@ -421,7 +430,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 21 fill here ---
+Sebastian
 
 ### Question 22
 
@@ -436,7 +445,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 22 fill here ---
+Sebastian
 
 ## Deployment
 
@@ -453,7 +462,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 23 fill here ---
+Sebstian
 
 ### Question 24
 
@@ -469,7 +478,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 24 fill here ---
+Sebastian
 
 ### Question 25
 
@@ -484,7 +493,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 25 fill here ---
+cecilie
 
 ### Question 26
 
@@ -499,7 +508,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 26 fill here ---
+Sebstian
 
 ## Overall discussion of project
 
@@ -518,7 +527,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 27 fill here ---
+Victor
 
 ### Question 28
 
@@ -534,7 +543,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 28 fill here ---
+Victor
 
 ### Question 29
 
@@ -551,7 +560,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 29 fill here ---
+victor
 
 ### Question 30
 
@@ -565,7 +574,7 @@ Debugging methods depended on the individual group member. While writing the mod
 >
 > Answer:
 
---- question 30 fill here ---
+Victor
 
 ### Question 31
 
@@ -583,4 +592,4 @@ Debugging methods depended on the individual group member. While writing the mod
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
---- question 31 fill here ---
+Sebastian
