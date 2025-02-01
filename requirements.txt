@@ -6,7 +6,7 @@ uvicorn==0.34.0
 pillow==11.1.0
 numpy==2.2.1
 torchvision==0.20.1
-kagglehub==0.3.6
+kagglehub==0.3.7
 dvc==3.59.0
 pytorch_lightning==2.5.0.post0
 matplotlib==3.10.0
